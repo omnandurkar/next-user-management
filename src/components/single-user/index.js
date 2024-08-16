@@ -1,18 +1,35 @@
 'use client';
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '../ui/button';
 import { deleteUserAction } from '@/actions/page';
+import { UserContext } from '@/context';
 
 const SingleUser = ({ user }) => {
+
+  const { setAddUserOpen, setAddNewUserFormData, setCurrentEditedID } = useContext(UserContext);
 
   const handleDeleteUser = async (getCurrentUserID) => {
 
     const result = await deleteUserAction(getCurrentUserID, "/user-management");
     console.log(result);
-    // alert(result.message);
-    
+    alert(result.message);
+  }
+
+  const handleEditUser =(getCurrentUser) => {
+
+    setAddUserOpen(true);
+    setAddNewUserFormData({
+      firstName : getCurrentUser?.firstName,
+      lastName : getCurrentUser?.lastName,
+      email : getCurrentUser?.email,
+      address : getCurrentUser?.address
+
+    })
+
+    setCurrentEditedID(getCurrentUser?._id);
+
   }
 
   return (
@@ -29,7 +46,7 @@ const SingleUser = ({ user }) => {
 
       <CardDescription className="space-x-5 ps-6">
 
-        <Button >Edit</Button>
+        <Button onClick={()=> handleEditUser(user)} >Edit</Button>
         <Button onClick={() => handleDeleteUser(user._id)} >Delete</Button>
 
       </CardDescription>

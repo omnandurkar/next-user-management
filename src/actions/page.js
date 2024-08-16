@@ -105,8 +105,38 @@ export const deleteUserAction = async (currentUserID, pathToRevalidate) => {
 
 //edit user action
 
-export const editUserAction = async () => {
+export const editUserAction = async (currentUserID, formData, pathToRevalidate) => {
 
-    
+    await connectDB();
+
+    try {
+
+        const { firstName, lastName, email, address } = formData;
+
+        const updatedUser = await User.findOneAndUpdate({
+            _id: currentUserID
+        },
+            { firstName, lastName, email, address },
+            { new: true }
+        );
+
+        if (updatedUser) {
+            // console.log('User updated successfully');
+            revalidatePath(pathToRevalidate);
+            return {
+                status: true,
+                message: 'User updated successfully'
+            }
+        } else {
+            console.log('Failed to update user');
+            return {
+                status: false,
+                message: 'Failed to update user'
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
 
 }

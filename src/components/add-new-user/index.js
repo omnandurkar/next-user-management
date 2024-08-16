@@ -16,12 +16,8 @@ import {
 import { Label } from "@/components/ui/label"
 import { Input } from '../ui/input'
 import { addNewUserFormControl, addNewUserInitialValues } from '@/utils'
-import { addNewUserAction } from '@/actions/page'
+import { addNewUserAction, editUserAction } from '@/actions/page'
 import { UserContext } from '@/context'
-
-
-
-
 
 
 const AddUser = () => {
@@ -29,7 +25,7 @@ const AddUser = () => {
     // const [AddUserOpen, setAddUserOpen] = useState(false);
     // const [addNewUserFormData, setAddNewUserFormData] = useState(addNewUserInitialValues); // this is in the context now
 
-    const { AddUserOpen, setAddUserOpen, addNewUserFormData, setAddNewUserFormData } = useContext(UserContext);
+    const { AddUserOpen, setAddUserOpen, addNewUserFormData, setAddNewUserFormData, currentEditedID, setCurrentEditedID } = useContext(UserContext);
 
     // console.log(addNewUserFormControl);
 
@@ -38,14 +34,20 @@ const AddUser = () => {
     }
 
     const handleAddNewUserAction = async (e) => {
-        const result = await addNewUserAction(
+        const result = currentEditedID !== null ? await editUserAction(
+            currentEditedID,
             addNewUserFormData,
-            "/user-management"
-        );
+            '/user-management'
+        )
+            :
+            await addNewUserAction(
+                addNewUserFormData,
+                "/user-management"
+            );
         // console.log(result);
         setAddUserOpen(false);
         setAddNewUserFormData(addNewUserInitialValues);
-        
+
     }
 
     return (
@@ -55,12 +57,16 @@ const AddUser = () => {
             <Button onClick={() => setAddUserOpen(true)} className='active:scale-95'> Add User </Button>
 
             <Dialog open={AddUserOpen} onOpenChange={() => {
-                setAddUserOpen(false); setAddNewUserFormData(addNewUserInitialValues)
+                setAddUserOpen(false); setAddNewUserFormData(addNewUserInitialValues); setCurrentEditedID(null)
             }}>
 
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogTitle>
+                            {
+                                currentEditedID !== null ? 'Edit User' : 'Add new user'
+                            }
+                        </DialogTitle>
                         <DialogDescription>
                             Make changes to your profile here. Click save when you're done.
                         </DialogDescription>
