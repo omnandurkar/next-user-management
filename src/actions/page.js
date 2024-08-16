@@ -105,11 +105,13 @@ export const deleteUserAction = async (currentUserID, pathToRevalidate) => {
 
 //edit user action
 
-export const editUserAction = async (currentUserID, formData, pathToRevalidate) => {
+export const editUserAction = async (currentUserID, formData, pathToRevalidate, ) => {
 
     await connectDB();
 
     try {
+
+
 
         const { firstName, lastName, email, address } = formData;
 

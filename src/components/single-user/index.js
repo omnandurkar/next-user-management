@@ -17,14 +17,14 @@ const SingleUser = ({ user }) => {
     alert(result.message);
   }
 
-  const handleEditUser =(getCurrentUser) => {
+  const handleEditUser = (getCurrentUser) => {
 
     setAddUserOpen(true);
     setAddNewUserFormData({
-      firstName : getCurrentUser?.firstName,
-      lastName : getCurrentUser?.lastName,
-      email : getCurrentUser?.email,
-      address : getCurrentUser?.address
+      firstName: getCurrentUser?.firstName,
+      lastName: getCurrentUser?.lastName,
+      email: getCurrentUser?.email,
+      address: getCurrentUser?.address
 
     })
 
@@ -33,7 +33,7 @@ const SingleUser = ({ user }) => {
   }
 
   return (
-    <Card className="shadow-lg rounded-lg p-6 max-w-sm flex flex-col justify-around  bg-gradient-to-br from-blue-200 via-white to-pink-200 hover:from-pink-200 hover:via-white hover:to-blue-200  hover:shadow-xl transition cursor-cell duration-300 border border-gray-200">
+    <Card className="shadow-lg mb-5 rounded-lg p-6 max-w-sm flex flex-col justify-around  bg-gradient-to-br from-gray-400 via-gray-100 to-slate-300 hover:from-slate-300 hover:via-gray-100 hover:to-gray-400  hover:shadow-xl transition cursor-cell duration-300 border border-gray-200">
       <CardHeader className="pb-4">
         <CardTitle className="text-2xl font-semibold text-gray-800">{user.firstName} {user.lastName}</CardTitle>
         <CardDescription className="text-gray-600">{user.email}</CardDescription>
@@ -46,7 +46,7 @@ const SingleUser = ({ user }) => {
 
       <CardDescription className="space-x-5 ps-6">
 
-        <Button onClick={()=> handleEditUser(user)} >Edit</Button>
+        <Button onClick={() => handleEditUser(user)} >Edit</Button>
         <Button onClick={() => handleDeleteUser(user._id)} >Delete</Button>
 
       </CardDescription>
