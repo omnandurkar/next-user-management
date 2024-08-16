@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Home() {
   const color = "#ffffff";
   return (
-    <div className="relative min-h-screen bg-gradient-to-r bg-black flex flex-col space-y-10 justify-center items-center  overflow-hidden">
+    <div className="p-10 relative min-h-screen bg-gradient-to-r bg-black flex flex-col space-y-10 justify-center items-center  overflow-hidden">
 
       {/* <TypingAnimation
         className="pointer-events-none whitespace-pre-wrap drop-shadow-lg bg-gradient-to-b to-gray-500 from-gray-200/80 bg-clip-text text-center text-3xl md:text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10"
