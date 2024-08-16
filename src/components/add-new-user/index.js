@@ -47,6 +47,7 @@ const AddUser = () => {
         // console.log(result);
         setAddUserOpen(false);
         setAddNewUserFormData(addNewUserInitialValues);
+        setCurrentEditedID(null);
 
     }
 
